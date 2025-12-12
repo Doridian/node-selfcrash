@@ -1,3 +1,4 @@
 /build
 *.tgz
+renovate.json
 node_modules

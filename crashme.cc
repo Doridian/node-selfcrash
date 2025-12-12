@@ -1,23 +1,26 @@
-#include <node.h>
+// hello.cc using Node-API
+#include <node_api.h>
 
 namespace crashme {
 
-using v8::FunctionCallbackInfo;
-using v8::Local;
-using v8::Object;
-using v8::Value;
-using v8::Context;
-
-void __attribute__((optimize("O0"))) Method(const FunctionCallbackInfo<Value>& args) {
+napi_value __attribute__((optimize("O0"))) Method(napi_env env, napi_callback_info args) {
   int *p = NULL;
   *p = 0x1337; // Dereferencing a NULL pointer
+  return nullptr;
 }
 
-extern "C" NODE_MODULE_EXPORT void
-NODE_MODULE_INITIALIZER(Local<Object> exports,
-                        Local<Value> module,
-                        Local<Context> context) {
-  NODE_SET_METHOD(exports, "crashme", Method);
+napi_value init(napi_env env, napi_value exports) {
+  napi_status status;
+  napi_value fn;
+
+  status = napi_create_function(env, nullptr, 0, Method, nullptr, &fn);
+  if (status != napi_ok) return nullptr;
+
+  status = napi_set_named_property(env, exports, "crashme", fn);
+  if (status != napi_ok) return nullptr;
+  return exports;
 }
 
-} // namespace crashme
+NAPI_MODULE(NODE_GYP_MODULE_NAME, init)
+
+}  // namespace crashme

@@ -1,4 +1,3 @@
-// hello.cc using Node-API
 #include <node_api.h>
 
 namespace crashme {

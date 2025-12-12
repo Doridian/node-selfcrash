@@ -3,7 +3,7 @@
 namespace selfcrash {
 
 napi_value __attribute__((optimize("O0"))) Method(napi_env env, napi_callback_info args) {
-  int *p = NULL;
+  int *p = nullptr;
   *p = 0x1337; // Dereferencing a NULL pointer
   return nullptr;
 }

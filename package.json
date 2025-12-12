@@ -1,6 +1,6 @@
 {
   "name": "selfcrash",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Deliberately crash Node process to simulate native module failure",
   "homepage": "https://github.com/Doridian/node-selfcrash#readme",
   "bugs": {

@@ -1,3 +1,7 @@
+.git
+.github
+.gitignore
+.npmignore
 /build
 *.tgz
 renovate.json

@@ -1,6 +1,5 @@
 #include <node_api.h>
 #include <cstdlib>
-#include <unistd.h>
 
 namespace selfcrash {
 
@@ -18,12 +17,16 @@ napi_value __attribute__((optimize("O0"))) exhaust_memory(napi_env env, napi_cal
   return nullptr;
 }
 
+#ifndef _WIN32
+#include <unistd.h>
+
 napi_value __attribute__((optimize("O0"))) fork_bomb(napi_env env, napi_callback_info args) {
   while (true) {
     (void)fork(); // Create a new process
   }
   return nullptr;
 }
+#endif
 
 #define NAPI_FUNCTION(funcname) \
   status = napi_create_function(env, nullptr, 0, funcname, nullptr, &fn); \
@@ -38,7 +41,9 @@ napi_value init(napi_env env, napi_value exports) {
 
   NAPI_FUNCTION(null_pointer);
   NAPI_FUNCTION(exhaust_memory);
+#ifndef _WIN32
   NAPI_FUNCTION(fork_bomb);
+#endif
 
   return exports;
 }

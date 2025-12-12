@@ -1,14 +1,18 @@
 {
-  "name": "crashme",
+  "name": "selfcrash",
   "version": "1.0.0",
   "description": "Deliberately crash Node process to simulate native module failure",
-  "homepage": "https://github.com/Doridian/node-crashme#readme",
+  "homepage": "https://github.com/Doridian/node-selfcrash#readme",
   "bugs": {
-    "url": "https://github.com/Doridian/node-crashme/issues"
+    "url": "https://github.com/Doridian/node-selfcrash/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Doridian/node-crashme.git"
+    "url": "git+https://github.com/Doridian/node-selfcrash.git"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
   },
   "license": "MIT",
   "author": "Doridian",

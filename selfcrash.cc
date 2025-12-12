@@ -1,6 +1,6 @@
 #include <node_api.h>
 
-namespace crashme {
+namespace selfcrash {
 
 napi_value __attribute__((optimize("O0"))) Method(napi_env env, napi_callback_info args) {
   int *p = NULL;
@@ -15,11 +15,11 @@ napi_value init(napi_env env, napi_value exports) {
   status = napi_create_function(env, nullptr, 0, Method, nullptr, &fn);
   if (status != napi_ok) return nullptr;
 
-  status = napi_set_named_property(env, exports, "crashme", fn);
+  status = napi_set_named_property(env, exports, "selfcrash", fn);
   if (status != napi_ok) return nullptr;
   return exports;
 }
 
 NAPI_MODULE(NODE_GYP_MODULE_NAME, init)
 
-}  // namespace crashme
+}  // namespace selfcrash

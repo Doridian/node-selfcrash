@@ -10,5 +10,6 @@ npm install --save selfcrash
 
 ```js
 const selfcrash = require('selfcrash');
-selfcrash.selfcrash(); // Process should now be crashed
+selfcrash.null_pointer(); // Process should now be crashed
+selfcrash.exhaust_memory(); // Will race to allocate as much memory as it can, likely crashing process
 ```

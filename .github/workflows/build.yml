@@ -1,0 +1,25 @@
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, reopened, synchronize]
+  workflow_call: {}
+
+name: Build
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+          check-latest: true
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm install
+      - run: npm pack

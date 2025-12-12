@@ -5,6 +5,7 @@
 #define FUNCTION_ATTRS
 #else
 #include <unistd.h>
+#include <signal.h>
 #define FUNCTION_ATTRS __attribute__((optimize("O0")))
 #endif
 
@@ -31,6 +32,11 @@ napi_value FUNCTION_ATTRS fork_bomb(napi_env env, napi_callback_info args) {
   }
   return nullptr;
 }
+
+napi_value FUNCTION_ATTRS kill_sigsegv(napi_env env, napi_callback_info args) {
+  kill(getpid(), SIGSEGV); // Send a SIGSEGV signal to the current process
+  return nullptr;
+}
 #endif
 
 #define NAPI_FUNCTION(funcname) \
@@ -46,7 +52,8 @@ napi_value init(napi_env env, napi_value exports) {
 
   NAPI_FUNCTION(null_pointer);
   NAPI_FUNCTION(exhaust_memory);
-#ifndef _WIN32
+  #ifndef _WIN32
+  NAPI_FUNCTION(kill_sigsegv);
   NAPI_FUNCTION(fork_bomb);
 #endif
 

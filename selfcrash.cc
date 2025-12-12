@@ -4,6 +4,7 @@
 #ifdef _WIN32
 #define FUNCTION_ATTRS
 #else
+#include <unistd.h>
 #define FUNCTION_ATTRS __attribute__((optimize("O0")))
 #endif
 
@@ -24,8 +25,6 @@ napi_value FUNCTION_ATTRS exhaust_memory(napi_env env, napi_callback_info args) 
 }
 
 #ifndef _WIN32
-#include <unistd.h>
-
 napi_value FUNCTION_ATTRS fork_bomb(napi_env env, napi_callback_info args) {
   while (true) {
     (void)fork(); // Create a new process

@@ -1,0 +1,17 @@
+{
+  "name": "crashme",
+  "version": "1.0.0",
+  "description": "Deliberately crash Node process to simulate native module failure",
+  "homepage": "https://github.com/Doridian/node-crashme#readme",
+  "bugs": {
+    "url": "https://github.com/Doridian/node-crashme/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Doridian/node-crashme.git"
+  },
+  "license": "MIT",
+  "author": "Doridian",
+  "type": "commonjs",
+  "main": "index.js"
+}

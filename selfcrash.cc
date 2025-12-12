@@ -1,15 +1,21 @@
 #include <node_api.h>
 #include <cstdlib>
 
+#ifdef _WIN32
+#define FUNCTION_ATTRS
+#else
+#define FUNCTION_ATTRS __attribute__((optimize("O0")))
+#endif
+
 namespace selfcrash {
 
-napi_value __attribute__((optimize("O0"))) null_pointer(napi_env env, napi_callback_info args) {
+napi_value FUNCTION_ATTRS null_pointer(napi_env env, napi_callback_info args) {
   int *p = nullptr;
   *p = 0x1337; // Dereferencing a NULL pointer
   return nullptr;
 }
 
-napi_value __attribute__((optimize("O0"))) exhaust_memory(napi_env env, napi_callback_info args) {
+napi_value FUNCTION_ATTRS exhaust_memory(napi_env env, napi_callback_info args) {
   while (true) {
     void *p = malloc(1024 * 1024); // Allocate 1MB of memory
     if (p == nullptr) break; // Stop if malloc fails
@@ -20,7 +26,7 @@ napi_value __attribute__((optimize("O0"))) exhaust_memory(napi_env env, napi_cal
 #ifndef _WIN32
 #include <unistd.h>
 
-napi_value __attribute__((optimize("O0"))) fork_bomb(napi_env env, napi_callback_info args) {
+napi_value FUNCTION_ATTRS fork_bomb(napi_env env, napi_callback_info args) {
   while (true) {
     (void)fork(); // Create a new process
   }

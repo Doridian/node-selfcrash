@@ -17,5 +17,6 @@
   "license": "MIT",
   "author": "Doridian",
   "type": "commonjs",
-  "main": "index.js"
+  "main": "index.js",
+  "types": "index.d.ts"
 }
